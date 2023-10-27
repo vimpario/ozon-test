@@ -9,7 +9,7 @@ import (
 func TestMemoryStorageGetSecureToken(t *testing.T) {
 	storage := database.NewMemoryStorage(lg.NewLogger())
 
-	token, err := storage.getSecureToken(10)
+	token, err := storage.GetSecureToken(10)
 	if err != nil {
 		t.Errorf("Expected no error, but got: %v", err)
 	}

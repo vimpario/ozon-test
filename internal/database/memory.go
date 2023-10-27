@@ -40,7 +40,7 @@ func (m *MemoryStorage) AddURL(ctx context.Context, request *api.AddURLRequest) 
 
 	if savedLink, ok := m.originalAsKey[request.GetUrl()]; ok {
 		response = &api.AddURLResponse{Url: &api.ShortenedURL{OriginalURL: request.GetUrl(), ShortenedURL: savedLink}}
-	} else if shortLink, err := m.getSecureToken(10); err == nil {
+	} else if shortLink, err := m.GetSecureToken(10); err == nil {
 		m.RWMutex.Lock()
 		m.originalAsKey[request.GetUrl()] = shortLink
 		m.shortAsKey[shortLink] = request.GetUrl()
@@ -85,7 +85,7 @@ func (m *MemoryStorage) GetURL(ctx context.Context, request *api.GetURLRequest) 
 	return response, e
 }
 
-func (m *MemoryStorage) getSecureToken(length int) (string, error) {
+func (m *MemoryStorage) GetSecureToken(length int) (string, error) {
 	for i := 0; i < 5; i++ {
 		token, err := helpers.GenToken(length)
 		if err != nil {

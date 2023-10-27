@@ -31,7 +31,7 @@ services:
   backend_memory:
     build: .
     ports:
-      - "9000:9000"
+      - "9001:9000"
     env_file:
       - .env
     environment:
@@ -49,7 +49,7 @@ services:
       - .env
     environment:
       - STORAGE_TYPE=postgresql
-      - POSTGRES_HOST=localhost
+      - POSTGRES_HOST=psql_database
     depends_on:
       - psql_database
       - psql_migrate

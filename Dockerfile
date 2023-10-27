@@ -6,8 +6,8 @@ COPY . /go/src/ozon-test
 RUN CGO_ENABLED=0 go build -a -installsuffix cgo -o build/ozon-test ./cmd/main.go
 
 FROM alpine
-RUN apk add --no-cache ca-certificates && update-ca-certificates
+RUN  apk add --no-cache ca-certificates && update-ca-certificates
 COPY --from=builder /go/src/ozon-test/build/ozon-test /usr/bin/ozon-test
 COPY --from=builder /go/src/ozon-test/.env .
-EXPOSE 9001 9001
+EXPOSE 9000 9000
 ENTRYPOINT ["/usr/bin/ozon-test"]

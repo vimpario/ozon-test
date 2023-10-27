@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	port = ":9001"
+	port = ":9000"
 )
 
 type Server struct {
@@ -37,7 +37,10 @@ func NewServer(logger *log.Logger) (*Server, error) {
 		server.storage = database.NewMemoryStorage(logger)
 		logger.Info("storage type: in-memory")
 	} else if mode == "postgresql" {
+		server.storage = database.NewMemoryStorage(logger)
+		logger.Info("storage type: postgresql")
 		if server.storage, err = database.NewPsqlStorage(logger); err != nil {
+			logger.Info(Server{})
 			return nil, entities.IncorrectPsqlStorageError
 		}
 		logger.Info("Storage: Postgresql")
